@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class PolymorphWindow extends JPanel implements ActionListener, MouseMotionListener {
+public class PolymorphWindow extends JPanel implements ActionListener, MouseMotionListener, MouseListener {
 	public static final int WIDTH = 900;
 	public static final int HEIGHT = 600;
 
@@ -34,6 +35,7 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
 		window.pack();
 		window.setVisible(true);
 		window.addMouseMotionListener(this);
+		window.addMouseListener(this);
 
 		timer = new Timer(1000 / 30, this);
 		timer.start();
@@ -48,6 +50,7 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
 		polymorphs.add(new ImagePolymorph(120, 200, "turtle.png"));
 		polymorphs.add(new ImagePolymorph(240, 400, "potato.png"));
 		polymorphs.add(new ImagePolymorph(360, 150, "watermelon.png"));
+		polymorphs.add(new DialogPolymorph(600, 200));
 	}
 
 	public void paintComponent(Graphics g) {
@@ -84,6 +87,49 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
 				((MousePolymorph) polymorph).update(e.getX(), e.getY());
 			}
 		}
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int x = 0;
+		int y = 0;
+		boolean clickedOn = false;
+		for (Polymorph polymorph : polymorphs) {
+			if (polymorph instanceof DialogPolymorph) {
+				x = ((DialogPolymorph) polymorph).getX();
+				y = ((DialogPolymorph) polymorph).getY();
+			}
+			if (e.getX() >= x && e.getX() <= x + 49 && e.getY() >= y && e.getY() <= y + 49) {
+				clickedOn = true;
+				((DialogPolymorph) polymorph).update(clickedOn);
+			}
+		}
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 
 	}
 }
