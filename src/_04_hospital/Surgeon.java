@@ -1,5 +1,5 @@
 package _04_hospital;
 
-public class Surgeon {
+public class Surgeon extends Doctor{
 
 }
