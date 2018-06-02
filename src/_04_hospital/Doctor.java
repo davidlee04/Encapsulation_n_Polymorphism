@@ -2,7 +2,7 @@ package _04_hospital;
 
 import java.util.ArrayList;
 
-public class Doctor {
+public class Doctor extends Exception{
 	ArrayList<Patient> assignedPatients = new ArrayList<Patient>();
 
 	public boolean performsSurgery() {
@@ -21,7 +21,10 @@ public class Doctor {
 		}
 	}
 	
-	public void assignPatient(Patient p) {
+	public void assignPatient(Patient p) throws DoctorFullException{
+		if(assignedPatients.size() == 3) {
+			throw new DoctorFullException();
+		}
 		assignedPatients.add(p);
 	}
 	
